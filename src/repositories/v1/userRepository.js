@@ -1,14 +1,26 @@
 //fazer verificação dos campos + erros dps
 
 import UserModel from '../../model/v1/User.js'
+import { UserException } from '../../utils/v1/errors.js'
 
 export const changePlan = async (id, plan) => {
-    const user = UserModel.findByIdAndUpdate(id, {plan})
-    return user
+    switch (plan) {
+        case "Gratuito":
+        case "Plano 1":
+        case "Plano 2":
+            const user = UserModel.findByIdAndUpdate(id, { plan })
+            return user
+        default:
+            throw new UserException("invalid data")
+    }
 }
 
-export const create = async (user, email, password) => {
-    const User = new UserModel({ user, email, password })
+export const login = async (email, password)=>{ 
+    return "Não feito ainda"
+}
+
+export const create = async (name, email, password) => {
+    const User = new UserModel({ name, email, password })
     await User.save()
     return User
 }
@@ -28,7 +40,7 @@ export const remove = async (id) => {
     return user
 }
 
-export const put = async (id, data) => {
+export const patch = async (id, data) => {
     const user = await UserModel.findByIdAndUpdate(id, data)
     return user
 }
@@ -38,8 +50,9 @@ const userRepository = {
     get,
     find,
     remove,
-    put,
-    changePlan
+    patch,
+    changePlan,
+    login
 }
 
 export default userRepository

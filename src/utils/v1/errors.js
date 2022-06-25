@@ -1,26 +1,38 @@
 //https://jsonapi.org/format/#errors-processing ver dps e atualizar
 
-export const errSignUp = {
-    "details": "Um erro ocorreu ao realizar um cadastro",
-    "status": 500
+export class UserException {
+    constructor(message) {
+        this.message = message;
+        this.name = "UserException";
+    }
 }
 
-export const errGetValues = {
-    "details": "Um erro ocorreu ao receber os dados",
-    "status": 500
+class Errors {
+    static lastId = 0;
+    id;    
+
+    constructor(){
+        this.id = ++Errors.lastId
+    }
+
+    createError(_title, _detail, _status){
+        return {
+            id: this.id,
+            title: _title,
+            detail: _detail,
+            status: _status,
+        }
+    }
 }
 
-export const errUserValueNotFound = {
-    "details": "Usuário não encontrado",
-    "status": 404
-}
+export const errSignUp = new Errors().createError("Falha no cadastro", "Um erro ocorreu ao realizar um cadastro", 500)
 
-export const errRemoveUser = {
-    "details": "Ocorreu um erro ao deletar o usuário",
-    "status": 500
-}
+export const errGetValues = new Errors().createError("Falha no cadastro", "Um erro ocorreu ao receber os dados", 500)
 
-export const errUpdateUser = {
-    "details": "Ocorreu um erro ao atualizar o usuário",
-    "status": 500
-}
+export const errUserValueNotFound = new Errors().createError("Falha na requisição", "Usuário não encontrado", 404)
+
+export const errRemoveUser = new Errors().createError("Falha na requisição", "Ocorreu um erro ao deletar o usuário", 500)
+
+export const errUpdateUser = new Errors().createError("Falha na requisição", "Ocorreu um erro ao atualizar o usuário", 500)
+
+export const errPutValidData = new Errors().createError("Valores Inválidos", "Coloque um valor válido!", 422)

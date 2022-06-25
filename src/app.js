@@ -1,4 +1,5 @@
 import 'dotenv/config'; //informações privadas
+import './services/mongodb.js'
 
 /*
  * .env data:
@@ -11,7 +12,6 @@ import 'dotenv/config'; //informações privadas
  * 
  * JWT_SECRET='caracteres aleatorios'
  */
-import mongoose from './services/mongodb.js'
 
 import express from "express"
 const app = express();
@@ -20,7 +20,13 @@ import cors from 'cors'; //habilita requisicao
 import router from './routes/index.js' //rotas
 
 app.use(express.json());
-app.use(cors());
+
+app.use((req, res, next)=>{
+    // res.header("Access-Control-Allow-Origin", "http://localhost:3001")
+    res.header("Access-Control-Allow-Origin", "*")
+    app.use(cors());
+    next()
+})
 
 app.use('/api', router)
 
