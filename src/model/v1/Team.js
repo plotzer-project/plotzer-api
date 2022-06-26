@@ -1,6 +1,28 @@
 import mongoose from 'mongoose';
 const { Schema, model, types } = mongoose;
 
+const MemberSchema = new Schema({
+  id: {
+    type: Schema.Types.ObjectId,
+    required: true
+  },
+  name: String,
+  email: String,
+  photo: String,
+  position: {
+    type: String,
+    default: "Funcionário"
+  },
+  reputation: {
+    type: Number,
+    default: 100
+  },
+  accepted: {
+    type: Boolean,
+    default: false
+  }
+})
+
 const TeamSchema = new Schema({
   cnpj: {
     type: String
@@ -9,14 +31,14 @@ const TeamSchema = new Schema({
       type: String,
       required: true,
   },
-  email: {
-      type: String,
-      required: true,
-      unique: true
+  ownerId: {
+    type:Schema.Types.ObjectId,
+    unique: true,
+    ref: "User",
+    required: true
   },
-  password: String,
-  ownerId: String, /**tenho que lembrar de converter dps de objectid para string! */
-  plan: String
+  plan: String,
+  members: Array(MemberSchema)
 });
 
 export default model("Team", TeamSchema);
