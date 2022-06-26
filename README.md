@@ -7,8 +7,8 @@
 
 - [x] Login System
 - [ ] Add middlewares (Auth, permissions)
-- [ ] Add JWT
+- [x] Add JWT
 - [ ] Verify errors
-- [ ] Change HTTP responses
+- [x] Change HTTP responses
 - [ ] Create Collections and their routes (Teams)
 - [ ] Uploads
