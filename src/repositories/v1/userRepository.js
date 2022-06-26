@@ -15,12 +15,22 @@ export const changePlan = async (id, plan) => {
     }
 }
 
-export const login = async (email, password)=>{ 
-    return "Não feito ainda"
+export const login = async (email) => {
+    const user = await UserModel.findOne({ email })
+    return user
 }
 
-export const create = async (name, email, password) => {
-    const User = new UserModel({ name, email, password })
+export const create = async (name, email, password, team, plan, photo) => {
+    switch (plan) {
+        case "Plano 1":
+        case "Plano 2":
+            plan;
+            break;
+        default:
+            plan = "Gratuito"
+            break;
+    }
+    const User = new UserModel({ name, email, password, team, plan, photo })
     await User.save()
     return User
 }
@@ -45,6 +55,16 @@ export const patch = async (id, data) => {
     return user
 }
 
+export const leaveTeam = async (id_user) =>{
+    const user = await UserModel.findByIdAndUpdate(id_user, {team: null})
+    return user
+}
+
+export const addTeam = async (id_user, id_team) =>{
+    const user = await UserModel.findByIdAndUpdate(id_user, {team: id_team})
+    return user
+}
+
 const userRepository = {
     create,
     get,
@@ -52,7 +72,9 @@ const userRepository = {
     remove,
     patch,
     changePlan,
-    login
+    login,
+    leaveTeam,
+    addTeam
 }
 
 export default userRepository
