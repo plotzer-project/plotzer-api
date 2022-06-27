@@ -1,18 +1,12 @@
 //fazer verificação dos campos + erros dps
-
+//adicionar limite de retornos
 import UserModel from '../../model/v1/User.js'
-import { UserException } from '../../utils/v1/errors.js'
+import { checkPlan } from '../../utils/v1/returns.js'
 
 export const changePlan = async (id, plan) => {
-    switch (plan) {
-        case "Gratuito":
-        case "Plano 1":
-        case "Plano 2":
-            const user = UserModel.findByIdAndUpdate(id, { plan })
-            return user
-        default:
-            throw new UserException("invalid data")
-    }
+    plan = checkPlan(plan)
+    const user = UserModel.findByIdAndUpdate(id, { plan })
+    return user
 }
 
 export const login = async (email) => {
@@ -21,15 +15,7 @@ export const login = async (email) => {
 }
 
 export const create = async (name, email, password, team, plan, photo) => {
-    switch (plan) {
-        case "Plano 1":
-        case "Plano 2":
-            plan;
-            break;
-        default:
-            plan = "Gratuito"
-            break;
-    }
+    plan = checkPlan(plan)
     const User = new UserModel({ name, email, password, team, plan, photo })
     await User.save()
     return User

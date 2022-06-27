@@ -6,7 +6,8 @@ export const userSuccessReturn = (user) => {
             "name": user.name,
             "email": user.email,
             "plan": user.plan,
-            "team": user.team
+            "team": user.team,
+            "photo": user.photo
         },
         links: {
             self: "/api/v1/users/" + user._id
@@ -23,7 +24,8 @@ export const userSuccessReturnJoin = (user, token) => {
             "name": user.name,
             "email": user.email,
             "plan": user.plan,
-            "team": user.team
+            "team": user.team,
+            "photo": user.photo
         },
         links: {
             self: "/api/v1/users/" + user._id
@@ -44,14 +46,15 @@ export const teamSuccessReturn = (team) => {
             "name": team.team_name,
             "plan": team.plan,
             "owner_id": team.ownerId,
-            "members": team.members.map((el, i)=>{
+            "members": team.members.map((el, i) => {
                 return {
                     id: el.id,
                     name: el.name,
                     email: el.email,
                     position: el.position,
-                    reputation: el.reputation,
-                    accepted: el.accepted
+                    reputation: el.reputation + "%",
+                    member_accepted: el.member_accepted, //if the team invite
+                    team_accepted: el.team_accepted //if he tried to join 
                 }
             })
         },
@@ -60,4 +63,21 @@ export const teamSuccessReturn = (team) => {
         }
     }
     return data
+}
+
+export const successfullyDeleted = (language) => {
+    return "Deletado com sucesso!"
+}
+
+export const checkPlan = (plan) => {
+    switch (plan) {
+        case "Plano 1":
+        case "Plano 2":
+            plan = plan;
+            break;
+        default:
+            plan = "Gratuito"
+            break;
+    }
+    return plan
 }

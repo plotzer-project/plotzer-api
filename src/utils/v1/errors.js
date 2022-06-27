@@ -31,6 +31,8 @@ export const errGetValues = new Errors().createError("Falha no cadastro", "Um er
 
 export const errUserNotFound = new Errors().createError("Falha na requisição", "Usuário não encontrado", 404)
 
+export const errUsersNotFound = new Errors().createError("Falha na requisição", "Nenhum usuário foi encontrado", 404)
+
 export const errRemoveUser = new Errors().createError("Falha na requisição", "Ocorreu um erro ao deletar o usuário", 500)
 
 export const errUpdateUser = new Errors().createError("Falha na requisição", "Ocorreu um erro ao atualizar o usuário", 500)

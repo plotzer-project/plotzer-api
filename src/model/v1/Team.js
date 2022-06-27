@@ -17,7 +17,11 @@ const MemberSchema = new Schema({
     type: Number,
     default: 100
   },
-  accepted: {
+  team_accepted: {
+    type: Boolean,
+    default: false
+  },
+  member_accepted: {
     type: Boolean,
     default: false
   }
@@ -28,17 +32,19 @@ const TeamSchema = new Schema({
     type: String
   },
   team_name: {
-      type: String,
-      required: true,
+    type: String,
+    required: true,
   },
   ownerId: {
-    type:Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     unique: true,
     ref: "User",
     required: true
   },
   plan: String,
   members: Array(MemberSchema)
-});
+},
+{ timestamps: true },
+);
 
 export default model("Team", TeamSchema);
