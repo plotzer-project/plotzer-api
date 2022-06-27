@@ -9,6 +9,6 @@
 - [ ] Add middlewares (Auth, permissions)
 - [x] Add JWT
 - [ ] Verify errors
-- [ ] Change HTTP responses
+- [x] Change HTTP responses
 - [ ] Create Collections and their routes (Teams)
 - [ ] Uploads
