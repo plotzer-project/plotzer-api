@@ -21,7 +21,13 @@ const UserSchema = new Schema({
     default: null
   },
   password: String,
-  photo: String
-});
+  photo: String,
+  permissions: {
+    type: Number,
+    default: 0
+  }
+},
+{ timestamps: true },
+);
 
 export default model("User", UserSchema);
